@@ -1,31 +1,34 @@
-# Streamlitライブラリをインポート
 import streamlit as st
+import pandas as pd
 
-# ページ設定（タブに表示されるタイトル、表示幅）
-st.set_page_config(page_title="タイトル", layout="wide")
+# Excelファイルのパス
+EXCEL_FILE_PATH = "国.xlsx"
 
-# タイトルを設定
-st.title('Streamlitのサンプルアプリ')
+# Excelファイルの読み込み
+@st.cache
+def load_data(file_path):
+    data = pd.read_excel(file_path)
+    return data
 
-# テキスト入力ボックスを作成し、ユーザーからの入力を受け取る
-user_input = st.text_input('あなたの名前を入力してください')
+# メインのStreamlitアプリケーション
+def main():
+    st.title('Excelから画像を表示する')
 
-# ボタンを作成し、クリックされたらメッセージを表示
-if st.button('挨拶する'):
-    if user_input:  # 名前が入力されているかチェック
-        st.success(f'🌟 こんにちは、{user_input}さん! 🌟')  # メッセージをハイライト
+    # Excelファイルを読み込む
+    try:
+        data = load_data(EXCEL_FILE_PATH)
+    except:
+        st.write('Excelファイルを読み込めませんでした。')
+        return
+
+    # 画像のファイルパスを取得する
+    image_path = data.iloc[0]['画像']
+
+    # 画像を表示する
+    if image_path:
+        st.image(image_path, caption='国の画像', use_column_width=True)
     else:
-        st.error('名前を入力してください。')  # エラーメッセージを表示
+        st.write('画像のファイルパスが見つかりませんでした。')
 
-# スライダーを作成し、値を選択
-number = st.slider('好きな数字（10進数）を選んでください', 0, 100)
-
-# 補足メッセージ
-st.caption("十字キー（左右）でも調整できます。")
-
-# 選択した数字を表示
-st.write(f'あなたが選んだ数字は「{number}」です。')
-
-# 選択した数値を2進数に変換
-binary_representation = bin(number)[2:]  # 'bin'関数で2進数に変換し、先頭の'0b'を取り除く
-st.info(f'🔢 10進数の「{number}」を2進数で表現すると「{binary_representation}」になります。 🔢')  # 2進数の表示をハイライト
+if __name__ == '__main__':
+    main()
