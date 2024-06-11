@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
 st.set_page_config(page_title="英単語ガチャ")
 
 st.title('英語単語ガチャ')
@@ -28,14 +27,11 @@ if st.button('単語ガチャ'):
     }
     chosen_rarity = np.random.choice(list(rarity_probs.keys()), p=list(rarity_probs.values()))
     subset_df = words_df[words_df['レア度'] == chosen_rarity]
+    selected_word = subset_df.sample().iloc[0]
     
-    if subset_df.empty:
-        st.error("選択されたレア度に対応する単語が見つかりませんでした。他のレア度で再試行してください。")
-    else:
-        selected_word = subset_df.sample().iloc[0]
-        # セッションステートに選択された単語を保存
-        st.session_state.selected_word = selected_word
-        st.session_state.display_meaning = False
+    # セッションステートに選択された単語を保存
+    st.session_state.selected_word = selected_word
+    st.session_state.display_meaning = False
 
 if 'selected_word' in st.session_state:
     st.header(f"問題: {st.session_state.selected_word['問題']}")
