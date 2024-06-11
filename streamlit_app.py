@@ -14,7 +14,7 @@ st.write('がんばってください！')
 # Load the data
 @st.cache
 def load_data():
-    return pd.read_excel("eigo.xlsx")
+    return pd.read_excel("aaa.xlsx")
 
 words_df = load_data()
 
