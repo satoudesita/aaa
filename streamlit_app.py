@@ -1,34 +1,45 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+st.set_page_config(page_title="英単語ガチャ")
 
-# Excelファイルのパス
-EXCEL_FILE_PATH = "国.xlsx"
+st.title('英語単語ガチャ')
 
-# Excelファイルの読み込み
+st.write('英語単語の問題をランダムに表示して、勉強をサポートします！')
+st.write('がんばってください！')
+
+# Load the data
 @st.cache
-def load_data(file_path):
-    data = pd.read_excel(file_path)
-    return data
+def load_data():
+    return pd.read_excel("eigo.xlsx")
 
-# メインのStreamlitアプリケーション
-def main():
-    st.title('Excelから画像を表示する')
+words_df = load_data()
 
-    # Excelファイルを読み込む
-    try:
-        data = load_data(EXCEL_FILE_PATH)
-    except:
-        st.write('Excelファイルを読み込めませんでした。')
-        return
+st.write(load_data)
 
-    # 画像のファイルパスを取得する
-    image_path = data.iloc[0]['画像']
 
-    # 画像を表示する
-    if image_path:
-        st.image(image_path, caption='国の画像', use_column_width=True)
-    else:
-        st.write('画像のファイルパスが見つかりませんでした。')
+# ガチャ機能
+if st.button('単語ガチャ'):
+    st.text("わかるかな")
+    rarity_probs = {
+        'N': 0.5,
+        'R': 0.5,
+    }
+    chosen_rarity = np.random.choice(list(rarity_probs.keys()), p=list(rarity_probs.values()))
+    subset_df = words_df[words_df['レア度'] == chosen_rarity]
+    selected_word = subset_df.sample().iloc[0]
+    
+    # セッションステートに選択された単語を保存
+    st.session_state.selected_word = selected_word
+    st.session_state.display_meaning = False
 
-if __name__ == '__main__':
-    main()
+if 'selected_word' in st.session_state:
+    st.header(f"問題: {st.session_state.selected_word['問題']}")
+    st.subheader(f"レア度: {st.session_state.selected_word['レア度']}")
+
+    # 意味を確認するボタンを追加
+    if st.button('解答を確認する'):
+        st.session_state.display_meaning = True
+
+    if st.session_state.display_meaning:
+        st.write(f"解答: {st.session_state.selected_word['解答']}")
