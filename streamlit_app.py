@@ -1,11 +1,14 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
-st.set_page_config(page_title="英単語ガチャ")
 
-st.title('英語単語ガチャ')
+st.set_page_config(page_title="歴史問題ガチャ")
 
-st.write('英語単語の問題をランダムに表示して、勉強をサポートします！')
+# タイトルと説明
+st.title('歴史問題単語ガチャ')
+
+st.write('歴史の問題をランダムに表示して、勉強をサポートします！')
 st.write('がんばってください！')
 
 # Load the data
@@ -19,11 +22,12 @@ st.write(load_data)
 
 
 # ガチャ機能
-if st.button('単語ガチャ'):
-    
+if st.button('ガチャを引く！'):
     rarity_probs = {
-        'N': 0.5,
-        'R': 0.5,
+        'N': 0.4,
+        'R': 0.3,
+        'SR': 0.2,
+        'SSR': 0.1
     }
     chosen_rarity = np.random.choice(list(rarity_probs.keys()), p=list(rarity_probs.values()))
     subset_df = words_df[words_df['レア度'] == chosen_rarity]
@@ -43,3 +47,8 @@ if 'selected_word' in st.session_state:
 
     if st.session_state.display_meaning:
         st.write(f"解答: {st.session_state.selected_word['解答']}")
+
+        
+
+
+# タイトルと説明
