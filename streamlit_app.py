@@ -20,7 +20,7 @@ st.write(load_data)
 
 # ガチャ機能
 if st.button('単語ガチャ'):
-    st.text("わかるかな")
+    
     rarity_probs = {
         'N': 0.5,
         'R': 0.5,
