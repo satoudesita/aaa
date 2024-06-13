@@ -16,15 +16,14 @@ st.write('がんばってください！')
 def load_data():
     return 
 
-words_df = pd.read_excel(".xlsx")
+words_df = pd.read_excel("iii.xlsx")
 
 
 
 # ガチャ機能
 if st.button('ガチャを引く！'):
     rarity_probs = {
-        'N': 0.5,
-        'R': 0.5
+        'N': 1.0,
     }
     chosen_rarity = np.random.choice(list(rarity_probs.keys()), p=list(rarity_probs.values()))
     subset_df = words_df[words_df['レア度'] == chosen_rarity]
