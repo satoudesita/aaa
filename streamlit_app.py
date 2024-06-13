@@ -3,12 +3,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.set_page_config(page_title="歴史問題ガチャ")
+st.set_page_config(page_title="英単語ガチャ")
 
 # タイトルと説明
-st.title('歴史問題単語ガチャ')
+st.title('英単語ガチャ')
 
-st.write('歴史の問題をランダムに表示して、勉強をサポートします！')
+st.write('英語の単語をランダムに表示して、勉強をサポートします！')
 st.write('がんばってください！')
 
 # Load the data
@@ -42,7 +42,7 @@ if 'selected_word' in st.session_state:
         st.session_state.display_meaning = True
 
     if st.session_state.display_meaning:
-        st.write(f"意味: {st.session_state.selected_word['意味']}")
+        st.subheader(f"意味: {st.session_state.selected_word['意味']}")
 
         
 
