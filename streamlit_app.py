@@ -16,7 +16,7 @@ st.write('がんばってください！')
 def load_data():
     return 
 
-words_df = pd.read_excel("aaa.xlsx")
+words_df = pd.read_excel(".xlsx")
 
 
 
