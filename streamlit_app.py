@@ -43,6 +43,7 @@ if 'selected_word' in st.session_state:
 
     if st.session_state.display_meaning:
         st.subheader(f"意味: {st.session_state.selected_word['意味']}")
+        st.subheader(f"Group: {st.session_state.selected_word['Group']}")
 
         
 
