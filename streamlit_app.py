@@ -44,5 +44,5 @@ if 'selected_word' in st.session_state:
     if st.session_state.display_meaning:
         st.subheader(f"意味: {st.session_state.selected_word['意味']}")
         st.subheader(f"用例（英語）: {st.session_state.selected_word['用例（英語）']}")
-        st.subheader(f"用例（日本語）: {st.session_state.selected_word['用例（日本語']}")
+        st.subheader(f"用例（日本語）: {st.session_state.selected_word['用例（日本語)']}")
      
