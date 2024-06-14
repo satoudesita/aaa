@@ -16,7 +16,7 @@ st.write('がんばってください！')
 def load_data():
     return 
 
-words_df = pd.read_excel("iii.xlsx")
+words_df = pd.read_excel("500600.xlsx")
 
 
 
